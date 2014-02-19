@@ -16,7 +16,6 @@ A documentação para esta classe por ser encontrada em:<br/>
  */
 
 function Swipe(container, options) {
-
   "use strict";
 
   // utilities
@@ -128,7 +127,8 @@ function Swipe(container, options) {
   }
 
   function slide(to, slideSpeed) {
-
+    options.callbackInit && options.callbackInit(index, to, slides[to]);
+    console.log('start');
     // do nothing if already on requested slide
     if (index == to) return;
 
@@ -166,7 +166,7 @@ function Swipe(container, options) {
       //no fallback for a circular continuous if the browser does not accept transitions
     }
 
-    offloadFn(options.callback && options.callback(index, to, slides[index]));
+    offloadFn(options.callbackEnd && options.callbackEnd(index, to, slides[index]));
     index = to;
   }
 
@@ -258,7 +258,7 @@ function Swipe(container, options) {
   var events = {
 
     handleEvent: function(event) {
-
+      console.log(event.type);
       switch (event.type) {
         case 'touchstart':
           this.start(event);
@@ -285,7 +285,6 @@ function Swipe(container, options) {
 
     },
     start: function(event) {
-
       var touches = event.touches[0];
 
       // measure start values
@@ -423,7 +422,7 @@ function Swipe(container, options) {
 
           }
           var from = direction ? index - 1 : index + 1;
-          options.callback && options.callback(from, index, slides[index]);
+          options.callbackEnd && options.callbackEnd(from, index, slides[index]);
 
         } else {
 
