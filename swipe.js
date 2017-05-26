@@ -422,7 +422,8 @@ function Swipe(container, options) {
 
           }
           var from = direction ? index - 1 : index + 1;
-          options.callbackEnd && options.callbackEnd(from, index, slides[index]);
+          options.callbackInit && options.callbackInit(from, index, slides[index]);
+          options.callbackEnd && options.callbackEnd(from, index, slides[from]);
 
         } else {
 
