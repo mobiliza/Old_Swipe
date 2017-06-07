@@ -386,6 +386,9 @@ function Swipe(container, options) {
       // determine direction of swipe (true:right, false:left)
       var direction = delta.x < 0;
 
+      if(Player.Helpers.isLocked() && direction) {
+        isValidSlide = false;
+      }
       // if not scrolling vertically
       if (!isScrolling) {
 
